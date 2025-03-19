@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} My Blog-List {% endblock title %}
+
+{% block body %}
+    {% for a in posts %}
+        <h2><a href="{{ a.get_absolute_url }}">{{ a.title }}</a></h2>
+        <p>Published {{ a.publish }}, by {{ a.author }}</p>
+        <p>{{ a.body|truncatewords:30|linebreaks }}</p>
+    {% endfor %}
+
+    {% include "paginator.html" with page=page_obj %}
+{% endblock body %}
