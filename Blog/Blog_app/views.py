@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView 
+from .forms import EmailPostForm
 
 # Create your views here.
 def post_list(request):
@@ -30,4 +31,17 @@ class Postlistview(ListView):
 def post_detail(request, year, month, day, post):
     detail_post = get_object_or_404(Post, status= Post.Status.PUBLISHED,slug=post, publish__year=year, publish__month=month, publish__day=day)
     return render(request, 'postdetail.html', {'detail_post': detail_post})
+
+def post_share(request, id):
+    share_post= get_object_or_404(Post, pk= id, status = Post.Status.PUBLISHED)
+    if request.method=='POST':
+        new_form= EmailPostForm(request.POST)
+        if new_form.is_valid():
+            cd= new_form.cleaned_data #send email
+    else:
+        new_form= EmailPostForm()
+        return render(request, 'forms.html', {'share_post': share_post})
+
+            
+
         
