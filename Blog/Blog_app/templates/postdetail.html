@@ -1,6 +1,9 @@
 {% extends "base.html" %}{% block body %}
 <h2>{{detail_post.title}}</h2>
-<p class="date">
-  published by {{detail_post.author}}, on {{detail_post.publish}}
-</p>
-{{detail_post.body}} {% endblock body %}
+  <p class="date">
+    published by {{detail_post.author}}, on {{detail_post.publish}}
+  </p>
+  {{detail_post.body}}
+  <p><a href ="{% url 'Blog:postshare' detail_post.id %}">Share This Post</a></p>
+
+{% endblock body %}
