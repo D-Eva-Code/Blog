@@ -42,8 +42,8 @@ def post_share(request, id):
             print("DEBUG: Form is valid")
             cd= new_form.cleaned_data #send email in a clean format
             post_url= request.build_absolute_uri(share_post.get_absolute_url())
-            subject= (f"{cd['name']} ({cd['email']})" f"recommends you read post {share_post.title}")
-            message= (f"Read{share_post.title} at {post_url}\n\n" f"{cd['name']}\'s comments: {cd['comments']}")
+            subject= (f"{cd['name']} ({cd['email']}) " f"recommends you read post {share_post.title}")
+            message= (f"Read \'{share_post.title}\' at {post_url}\n\n" f"{cd['name']}\'s comment: {cd['comments']}")
             send_mail(subject=subject, message=message, from_email=None, recipient_list=[cd['to']])
             sent=True
             return render(request, 'forms.html', {'share_post': share_post, 'new_form': new_form, 'sent':sent})
