@@ -8,7 +8,7 @@ urlpatterns = [
     path('list', views.post_list, name= 'list'),
     path('<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_detail, name= 'postdetail'),
     path('<int:id>/share/', views.post_share, name= 'postshare'),
-    path('<int:id>', views.post_comment, name= 'postcomment'),
+    path('comment/<int:id>', views.post_comment, name= 'postcomment'),
 ]
 
  

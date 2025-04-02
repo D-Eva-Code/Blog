@@ -63,10 +63,13 @@ def post_share(request, id):
 @require_POST
 def post_comment(request, id):
     post = get_object_or_404(Post, status= Post.Status.PUBLISHED, pk= id)
-    comments= None
-    new_comment= CommentForm(data=request.POST)
+    comment= None
+    new_comment= CommentForm(request.POST)
+    print('received post data:',request.POST)
+    print('these are the errors',new_comment.errors)
     if new_comment.is_valid():
-        comments= new_comment.save(commit=False)#assign the comments variable to the comments object(using save) and dont save yet (having that commit=False)
-        comments.post= post# assign the post to the comment we created
-        comments.save()#finally save the comment to database
-        return render(request, 'comment.html', {'comments': comments, 'post':post, 'new_comment':new_comment})
+        comment= new_comment.save(commit=False)#assign the comments variable to the comments object(using save) and dont save yet (having that commit=False)
+        comment.post= post# assign the post to the comment we created
+        comment.save()#finally save the comment to database
+        return render(request, 'comment.html', {'comment': comment, 'post':post, 'new_comment':new_comment})
+    return render(request, 'comment.html', {'comment': comment, 'post':post, 'new_comment':new_comment})

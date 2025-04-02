@@ -1,6 +1,19 @@
+
 <h2> Add a new comment</h2>
-    <form action= '{% url "Blog:postcomment post.id" %}' method= 'post'>
+
+    <form action= "{% url "Blog:postcomment" 5 %}" method= "post">
         {% csrf_token %}
-        {{new_comment.as_p}}
-        <p><input type ="submit" value= "Add Comment"></p>
+        <p>
+        {% comment %} {{new_comment.name.label_tag}}
+        {{new_comment.name}}
+        {{new_comment.errors}} {% endcomment %}
+        {{new_comment}}
+        </P>
+        {% comment %} <input type="text" name="name">
+        <input type="email" name="email">
+        <textarea name="body"></textarea>  {% endcomment %}
+        {% comment %} <pre>{{ new_comment }}</pre> {% endcomment %}
+
+
+        <p><button type ="submit" class= "btn btn-primary shadow-lg btn-sm" >Add comment</p>
     </form>
