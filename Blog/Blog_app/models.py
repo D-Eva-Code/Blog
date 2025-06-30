@@ -12,6 +12,9 @@ class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'PB', 'Published'
+    class Gender(models.TextChoices):
+        MALE ='M', 'Male'
+        FEMALE = 'F', 'Female'
     objects = models.Manager()
     published= PublishedManager()    
     title = models.CharField(max_length=250)
@@ -22,6 +25,7 @@ class Post(models.Model):
     update= models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=Status, default=Status.DRAFT)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blogs_post')
+    gender= models.CharField(max_length=2, choices=Gender.choices, default= Gender.FEMALE)
     
     
     
@@ -33,6 +37,7 @@ class Post(models.Model):
 class Meta:
     ordering = ['-publish']
     indexes= [models.Index(fields=['-publish'])]
+    db_table= 'Eva\'s datatable'
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
