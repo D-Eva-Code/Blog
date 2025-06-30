@@ -37,7 +37,7 @@ class Post(models.Model):
 class Meta:
     ordering = ['-publish']
     indexes= [models.Index(fields=['-publish'])]
-    db_table= 'Eva\'s datatable'
+    db_table= 'Custom_database_table'
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
