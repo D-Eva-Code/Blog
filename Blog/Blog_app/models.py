@@ -13,7 +13,7 @@ class Post(models.Model):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'PB', 'Published'
     class Gender(models.TextChoices):
-        MALE ='M', 'Male'
+        MALE = 'M', 'Male'
         FEMALE = 'F', 'Female'
     objects = models.Manager()
     published= PublishedManager()    
@@ -27,7 +27,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blogs_post')
     gender= models.CharField(max_length=2, choices=Gender.choices, default= Gender.FEMALE)
     
-    
+
     
     def __str__(self):
         return self.title

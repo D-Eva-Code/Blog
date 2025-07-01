@@ -6,7 +6,7 @@ from.models import Comment
 @admin.register(Post)
 
 class PostAdmin(admin.ModelAdmin):
-    list_display=['title','slug', 'publish', 'author', 'status']
+    list_display=['title','slug', 'publish', 'author', 'status', 'gender']
     search_fields=['title', 'body']
     date_hierarchy='publish'
     ordering= ['status', 'publish']
