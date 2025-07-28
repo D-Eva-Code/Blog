@@ -33,6 +33,29 @@
     <p>There are no comments.</p>
   {% endfor %}
 
-  {% include "include/commentform.html" %}
+  {% comment %} {% include "Include/commentform.html" %} {% endcomment %}
+
+  <h2> Add a new comment</h2>
+    <p><strong>DEBUG ID:</strong> {{ detail_post.id }}</p>
+
+    <form action= "{% url 'Blog:postcomment' detail_post.id %}" method= "post">
+        {% csrf_token %}
+        <p>
+        {% comment %} {{new_comment.name.label_tag}}
+        {{new_comment.name}}
+        {{new_comment.errors}} {% endcomment %}
+        {% comment %} {{form.as_p}} {% endcomment %}
+        <div class="left">
+        {{form.name.as_field_group}}
+        </div>
+        </P>
+        {% comment %} <input type="text" name="name">
+        <input type="email" name="email">
+        <textarea name="body"></textarea>  {% endcomment %}
+        {% comment %} <pre>{{ new_comment }}</pre> {% endcomment %}
+
+
+        <p><button type ="submit" class= "btn btn-primary shadow-lg btn-sm" >Add comment</p>
+    </form>
 </div>
 {% endblock body %}

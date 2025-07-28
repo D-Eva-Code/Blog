@@ -1,7 +1,8 @@
 
 <h2> Add a new comment</h2>
+    <p><strong>DEBUG ID:</strong> {{ detail_post.id }}</p>
 
-    <form action= "{% url "Blog:postcomment" 5 %}" method= "post">
+    <form action= "{% url 'Blog:postcomment' detail_post.id %}" method= "post">
         {% csrf_token %}
         <p>
         {% comment %} {{new_comment.name.label_tag}}
