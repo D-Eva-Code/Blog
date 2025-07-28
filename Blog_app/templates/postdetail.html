@@ -40,15 +40,21 @@
 
     <form action= "{% url 'Blog:postcomment' detail_post.id %}" method= "post">
         {% csrf_token %}
-        <p>
+        
         {% comment %} {{new_comment.name.label_tag}}
         {{new_comment.name}}
         {{new_comment.errors}} {% endcomment %}
         {% comment %} {{form.as_p}} {% endcomment %}
-        <div class="left">
-        {{form.name.as_field_group}}
-        </div>
-        </P>
+        <div class="form-align" style="display:flex;">
+          <div class="left">
+            {{form.name.as_field_group}}
+          </div>
+          <div class="left">
+            {{form.email.as_field_group}}
+          </div>
+        </div><br>
+          {{form.body.as_field_group}}
+       
         {% comment %} <input type="text" name="name">
         <input type="email" name="email">
         <textarea name="body"></textarea>  {% endcomment %}
