@@ -9,9 +9,10 @@ from .forms import EmailPostForm
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from .forms import CommentForm
+from taggit.models import Tag
 
 # Create your views here.
-def post_list(request):
+def post_list(request, tag_slug=None):
     posts= Post.published.all()
     paginator= Paginator(posts, 2)
     pagenumber= request.GET.get("page")
@@ -21,8 +22,13 @@ def post_list(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts= paginator.page(paginator.num_pages)
+        tag= None
+    if tag_slug:
+        tag= get_object_or_404(Tag, slug=tag_slug)
+        posts= posts.filter(tags__in=[tag])
    
-    return render(request, 'postlist.html', {'posts':posts})
+    return render(request, 'postlist.html', {'posts':posts, 'tag':tag})
+    
 
 class Postlistview(ListView):
     queryset= Post.published.all()

@@ -4,8 +4,21 @@
 {% block title %} My Blog-List {% endblock title %}
 
 {% block body %}
+   
+        {% if tag %}
+         <h2>
+            Posts tagged with "{{tag.name}}"
+         </h2>
+        {% endif %}
+    </h1>
     {% for a in posts %}
         <h2><a href="{{ a.get_absolute_url }}">{{ a.title }}</a></h2>
+        <p>
+            Tags: {%for tag in a.tags.all%}
+            <a href="{% url "Blog:post_list_by_tag" tag.slug%}">{{tag.name}}</a>
+            {% if not forloop.last %}{% endif %} 
+            {% endfor %}
+        </p>
         <p>Published {{ a.publish }}, by {{ a.author }}</p>
         <p>{{ a.body|truncatewords:30|linebreaks }}</p>
     {% endfor %}
