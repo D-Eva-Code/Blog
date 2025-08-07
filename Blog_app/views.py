@@ -14,6 +14,10 @@ from taggit.models import Tag
 # Create your views here.
 def post_list(request, tag_slug=None):
     posts= Post.published.all()
+    tag= None
+    if tag_slug:
+        tag= get_object_or_404(Tag, slug=tag_slug)
+        posts= posts.filter(tags__in=[tag])
     paginator= Paginator(posts, 2)
     pagenumber= request.GET.get("page")
     try:
@@ -22,10 +26,8 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts= paginator.page(paginator.num_pages)
-        tag= None
-    if tag_slug:
-        tag= get_object_or_404(Tag, slug=tag_slug)
-        posts= posts.filter(tags__in=[tag])
+        
+   
    
     return render(request, 'postlist.html', {'posts':posts, 'tag':tag})
     
